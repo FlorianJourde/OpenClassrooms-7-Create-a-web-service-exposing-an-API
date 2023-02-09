@@ -9,11 +9,13 @@ use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use JMS\Serializer\SerializerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class UserController extends AbstractController
 {
@@ -32,7 +34,7 @@ class UserController extends AbstractController
      * @Route("/api/users/{id}", name="app_user_details", methods="GET")
      * @Entity("user", expr="repository.find(id)")
      */
-    public function getUserDetails(User $user, SerializerInterface $serializer): JsonResponse
+    public function getUserDetails(User $user, SerializerInterface $serializer, ValidatorInterface $validator): JsonResponse
     {
         $jsonUser = $serializer->serialize($user, 'json');
 
@@ -42,7 +44,7 @@ class UserController extends AbstractController
     /**
      * @Route("/api/users", name="app_create_user", methods="POST")
      */
-    public function createrUser(Request $request, SerializerInterface $serializer, ClientRepository $clientRepository, EntityManagerInterface $em): JsonResponse
+    public function createrUser(Request $request, SerializerInterface $serializer, ClientRepository $clientRepository, EntityManagerInterface $em, ValidatorInterface $validator): JsonResponse
     {
         $clientList = [];
 
@@ -56,6 +58,11 @@ class UserController extends AbstractController
         $user->setCreationDate(new DateTime());
         $user->setClient($clientList[array_rand($clientList)]);
         $jsonUser = $serializer->serialize($user, 'json');
+
+        $errors = $validator->validate($user);
+        if ($errors->count() > 0) {
+            return new JsonResponse($serializer->serialize($errors, 'json'), JsonResponse::HTTP_BAD_REQUEST, [], true);
+        }
 
         $em->persist($user);
         $em->flush();
