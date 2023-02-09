@@ -4,13 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Phone;
 use App\Repository\PhoneRepository;
-use JMS\Serializer\SerializationContext;
 use JMS\Serializer\SerializerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -19,7 +16,7 @@ class PhoneController extends AbstractController
     /**
      * @Route("/api/phones", name="app_phones", methods="GET")
      */
-    public function getAllPhones(PhoneRepository $phoneRepository, SerializerInterface $serializer, Request $request): JsonResponse
+    public function getPhones(PhoneRepository $phoneRepository, SerializerInterface $serializer): JsonResponse
     {
         $phonesList = $phoneRepository->findAll();
         $jsonPhonesList = $serializer->serialize($phonesList, 'json');
