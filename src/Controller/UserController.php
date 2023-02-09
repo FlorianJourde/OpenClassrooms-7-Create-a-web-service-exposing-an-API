@@ -6,7 +6,6 @@ use App\Entity\User;
 use App\Repository\ClientRepository;
 use App\Repository\UserRepository;
 use DateTime;
-use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use JMS\Serializer\SerializerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
@@ -30,10 +29,10 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/api/users/{id}", name="app_user", methods="GET")
-     * @Entity("user", expr="repository.find(id)"))
+     * @Route("/api/users/{id}", name="app_user_details", methods="GET")
+     * @Entity("user", expr="repository.find(id)")
      */
-    public function getUser(User $user, SerializerInterface $serializer): JsonResponse
+    public function getUserDetails(User $user, SerializerInterface $serializer): JsonResponse
     {
         $jsonUser = $serializer->serialize($user, 'json');
 
@@ -41,8 +40,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/api/users", name="app_users_create", methods="POST")
-     * @Entity("client", expr="repository.find(id)"))
+     * @Route("/api/users", name="app_create_user", methods="POST")
      */
     public function createrUser(Request $request, SerializerInterface $serializer, ClientRepository $clientRepository, EntityManagerInterface $em): JsonResponse
     {
@@ -63,5 +61,17 @@ class UserController extends AbstractController
         $em->flush();
 
         return new JsonResponse($jsonUser, Response::HTTP_CREATED, [], true);
+    }
+
+    /**
+     * @Route("api/users/{id}", name="app_delete_user", methods="DELETE")
+     * @Entity("user", expr="repository.find(id)")
+     */
+    public function deleteUser(User $user, EntityManagerInterface $em): JsonResponse
+    {
+        $em->remove($user);
+        $em->flush();
+
+        return new JsonResponse(null, Response::HTTP_NO_CONTENT);
     }
 }

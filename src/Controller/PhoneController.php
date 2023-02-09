@@ -25,10 +25,10 @@ class PhoneController extends AbstractController
     }
 
     /**
-     * @Route("/api/phones/{id}", name="app_phone", methods="GET")
-     * @Entity("phone", expr="repository.find(id)"))
+     * @Route("/api/phones/{id}", name="app_phone_details", methods="GET")
+     * @Entity("phone", expr="repository.find(id)")
      */
-    public function getPhone(Phone $phone, SerializerInterface $serializer): JsonResponse
+    public function getPhoneDetails(Phone $phone, SerializerInterface $serializer): JsonResponse
     {
 //        $context = SerializationContext::create()->setGroups(["getPhones"]);
         $jsonPhone = $serializer->serialize($phone, 'json');
