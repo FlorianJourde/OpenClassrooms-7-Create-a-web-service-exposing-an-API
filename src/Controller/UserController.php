@@ -20,7 +20,7 @@ class UserController extends AbstractController
     /**
      * @Route("/api/users", name="app_users", methods="GET")
      */
-    public function getUsers(UserRepository $userRepository, SerializerInterface $serializer): JsonResponse
+    public function getAllUsers(UserRepository $userRepository, SerializerInterface $serializer): JsonResponse
     {
         $usersList = $userRepository->findAll();
         $jsonUsersLists = $serializer->serialize($usersList, 'json');
