@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : ven. 03 fév. 2023 à 14:32
+-- Généré le : jeu. 09 fév. 2023 à 16:41
 -- Version du serveur : 5.7.36
 -- Version de PHP : 7.4.26
 
@@ -65,7 +65,9 @@ CREATE TABLE IF NOT EXISTS `doctrine_migration_versions` (
 --
 
 INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
-('DoctrineMigrations\\Version20230130215046', '2023-01-30 21:51:01', 54);
+('DoctrineMigrations\\Version20230130215046', '2023-01-30 21:51:01', 54),
+('DoctrineMigrations\\Version20230209112315', '2023-02-09 11:23:21', 105),
+('DoctrineMigrations\\Version20230209112344', '2023-02-09 11:23:47', 110);
 
 -- --------------------------------------------------------
 
@@ -110,28 +112,27 @@ INSERT INTO `phone` (`id`, `brand`, `model`, `color`, `memory`, `description`, `
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `client_id` int(11) DEFAULT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `creation_date` datetime NOT NULL,
+  `client_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_8D93D64919EB6921` (`client_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `user`
 --
 
-INSERT INTO `user` (`id`, `client_id`, `email`, `creation_date`) VALUES
-(1, 3, 'user0@bilemo.com', '2023-02-03 14:31:24'),
-(2, 2, 'user1@bilemo.com', '2023-02-03 14:31:24'),
-(3, 2, 'user2@bilemo.com', '2023-02-03 14:31:24'),
-(4, 1, 'user3@bilemo.com', '2023-02-03 14:31:24'),
-(5, 3, 'user4@bilemo.com', '2023-02-03 14:31:24'),
-(6, 2, 'user5@bilemo.com', '2023-02-03 14:31:24'),
-(7, 1, 'user6@bilemo.com', '2023-02-03 14:31:24'),
-(8, 2, 'user7@bilemo.com', '2023-02-03 14:31:24'),
-(9, 3, 'user8@bilemo.com', '2023-02-03 14:31:24'),
-(10, 2, 'user9@bilemo.com', '2023-02-03 14:31:24');
+INSERT INTO `user` (`id`, `email`, `creation_date`, `client_id`) VALUES
+(1, 'user0@bilemo.com', '2023-02-03 14:31:24', 1),
+(2, 'user1@bilemo.com', '2023-02-03 14:31:24', 2),
+(3, 'user2@bilemo.com', '2023-02-03 14:31:24', 3),
+(4, 'user3@bilemo.com', '2023-02-03 14:31:24', 1),
+(5, 'user4@bilemo.com', '2023-02-03 14:31:24', 2),
+(6, 'user5@bilemo.com', '2023-02-03 14:31:24', 3),
+(7, 'user6@bilemo.com', '2023-02-03 14:31:24', 2),
+(8, 'user7@bilemo.com', '2023-02-03 14:31:24', 3),
+(9, 'user8@bilemo.com', '2023-02-03 14:31:24', 1);
 
 --
 -- Contraintes pour les tables déchargées
