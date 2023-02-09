@@ -5,9 +5,9 @@
 
 ## Créez un web service exposant une API
 
-![OpenClassrooms banneer](./ressources/images/oc_banner.png)
+![OpenClassrooms banneer](./ressources/images/bilemo.jpg)
 
-[![Symfony Badge](https://img.shields.io/badge/Symfony-5.4-000000?style=flat-square&logo=symfony&logoColor=white/)](https://symfony.com/) [![Composer Badge](https://img.shields.io/badge/Composer-2.4-6c3e22?style=flat-square&logo=composer&logoColor=white/)](https://getcomposer.org/) [![PHP Badge](https://img.shields.io/badge/PHP-7.4-7a86b8?style=flat-square&logo=php&logoColor=white/)](https://www.php.net/) [![Draw.io Badge](https://img.shields.io/badge/Diagrams.net-20.7-F08705?style=flat-square&logo=diagrams.net&logoColor=white/)](https://www.diagrams.net/) [![Postman Badge](https://img.shields.io/badge/Diagrams.net-10.8.7-FF6C37?style=flat-square&logo=Postman&logoColor=white/)](https://www.postman.com/)
+[![Symfony Badge](https://img.shields.io/badge/Symfony-5.4-000000?style=flat-square&logo=symfony&logoColor=white/)](https://symfony.com/) [![Composer Badge](https://img.shields.io/badge/Composer-2.4-6c3e22?style=flat-square&logo=composer&logoColor=white/)](https://getcomposer.org/) [![PHP Badge](https://img.shields.io/badge/PHP-7.4-7a86b8?style=flat-square&logo=php&logoColor=white/)](https://www.php.net/) [![Draw.io Badge](https://img.shields.io/badge/Diagrams.net-20.7-F08705?style=flat-square&logo=diagrams.net&logoColor=white/)](https://www.diagrams.net/) [![Postman Badge](https://img.shields.io/badge/Postman-10.8.7-FF6C37?style=flat-square&logo=Postman&logoColor=white/)](https://www.postman.com/)
 
 ### À propos
 
