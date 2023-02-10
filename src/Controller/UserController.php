@@ -60,8 +60,6 @@ class UserController extends AbstractController
         $user->setEmail($content['email']);
         $user->setCreationDate(new DateTime());
         $user->setClient($clientList[array_rand($clientList)]);
-        $context = SerializationContext::create()->setGroups(["getUsers"]);
-        $jsonUser = $serializer->serialize($user, 'json', $context);
 
         $errors = $validator->validate($user);
         if ($errors->count() > 0) {
@@ -70,6 +68,9 @@ class UserController extends AbstractController
 
         $em->persist($user);
         $em->flush();
+
+        $context = SerializationContext::create()->setGroups(["getUsers"]);
+        $jsonUser = $serializer->serialize($user, 'json', $context);
 
         return new JsonResponse($jsonUser, Response::HTTP_CREATED, [], true);
     }
