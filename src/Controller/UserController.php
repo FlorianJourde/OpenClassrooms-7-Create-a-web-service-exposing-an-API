@@ -7,6 +7,7 @@ use App\Repository\ClientRepository;
 use App\Repository\UserRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use JMS\Serializer\SerializationContext;
 use JMS\Serializer\SerializerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -25,7 +26,8 @@ class UserController extends AbstractController
     public function getAllUsers(UserRepository $userRepository, SerializerInterface $serializer): JsonResponse
     {
         $usersList = $userRepository->findAll();
-        $jsonUsersLists = $serializer->serialize($usersList, 'json');
+        $context = SerializationContext::create()->setGroups(["getUsers"]);
+        $jsonUsersLists = $serializer->serialize($usersList, 'json', $context);
 
         return new JsonResponse($jsonUsersLists, Response::HTTP_OK, [], true);
     }
@@ -36,7 +38,8 @@ class UserController extends AbstractController
      */
     public function getUserDetails(User $user, SerializerInterface $serializer, ValidatorInterface $validator): JsonResponse
     {
-        $jsonUser = $serializer->serialize($user, 'json');
+        $context = SerializationContext::create()->setGroups(["getUsers"]);
+        $jsonUser = $serializer->serialize($user, 'json', $context);
 
         return new JsonResponse($jsonUser, Response::HTTP_OK, [], true);
     }
@@ -57,7 +60,8 @@ class UserController extends AbstractController
         $user->setEmail($content['email']);
         $user->setCreationDate(new DateTime());
         $user->setClient($clientList[array_rand($clientList)]);
-        $jsonUser = $serializer->serialize($user, 'json');
+        $context = SerializationContext::create()->setGroups(["getUsers"]);
+        $jsonUser = $serializer->serialize($user, 'json', $context);
 
         $errors = $validator->validate($user);
         if ($errors->count() > 0) {

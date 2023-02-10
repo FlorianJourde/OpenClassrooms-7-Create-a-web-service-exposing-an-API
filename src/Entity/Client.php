@@ -6,6 +6,7 @@ use App\Repository\ClientRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\Groups;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -18,27 +19,32 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"getUsers","getClients"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Groups({"getUsers","getClients"})
      */
     private $email;
 
     /**
      * @ORM\Column(type="json")
+     * @Groups({"getUsers","getClients"})
      */
     private $roles = [];
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Groups({"getUsers","getClients"})
      */
     private $password;
 
     /**
      * @ORM\OneToMany(targetEntity=User::class, mappedBy="client")
+     * @Groups({"getUsers","getClients"})
      */
     private $users;
 

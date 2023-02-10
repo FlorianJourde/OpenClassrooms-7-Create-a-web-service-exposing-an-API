@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\PhoneRepository;
+use JMS\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -14,36 +15,43 @@ class Phone
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"getPhones"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"getPhones"})
      */
     private $brand;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"getPhones"})
      */
     private $model;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"getPhones"})
      */
     private $color;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Groups({"getPhones"})
      */
     private $memory;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups({"getPhones"})
      */
     private $description;
 
     /**
      * @ORM\Column(type="float")
+     * @Groups({"getPhones"})
      */
     private $price;
 
