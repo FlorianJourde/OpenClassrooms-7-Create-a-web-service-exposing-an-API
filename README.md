@@ -38,11 +38,13 @@ Pour pouvoir installer ce projet, le gestionnaire de dépendance **Composer** do
 git clone https://github.com/FlorianJourde/OpenClassrooms-7-Create-a-web-service-exposing-an-API
 ```
 
+
 2. Lancez cette commande pour vous rendre dans le dossier adequat :
 
 ```shell
 cd OpenClassrooms-7-Create-a-web-service-exposing-an-API
 ```
+
 
 3. À la racine de ce répertoire, lancez la commande suivante pour installer les dépendances Composer :
 
@@ -50,30 +52,42 @@ cd OpenClassrooms-7-Create-a-web-service-exposing-an-API
 composer install
 ```
 
+
 4. Une fois l'installation des dépendances terminée, vous devez maintenant dupliquer le fichier `.env` situé à la racine du projet, puis renommer le nouveau fichier en `.env.local`, pour vous connecter à votre base de données. À la ligne 31, remplacez les identifiants de connexion par vos identifiants de base de données locale :
 
 ```php
 DATABASE_URL="mysql://username:password@127.0.0.1:3306/bilemo_db?serverVersion=5.7.36&charset=utf8mb4"
 ```
 
-5. Ensuite, importez simplement le fichier `bilemo_db.sql`, présent dans le dossier `ressources`, dans votre base de données SQL locale. Si toutes les informations ont correctement été renseignées, la connexion devrait se faire automatiquement. Vous pouvez effectuer cette action sur WAMP ou MAMP, à cette étape.
 
-6. Via le terminal, lancez l'une des deux commandes pour démarrer l'application Symfony :
-
-```zsh
-php -S localhost:8000 -t public
+5. Dans ce même fichier, vous devez également modifier la ligne 25, pour y indiquer le PASSPHRASE de JWT, ce qui donnera ceci :
+```
+JWT_PASSPHRASE=123456
 ```
 
-ou
+
+6. Ensuite, importez simplement le fichier `bilemo_db.sql`, présent dans le dossier `ressources`, dans votre base de données SQL locale. Si toutes les informations ont correctement été renseignées, la connexion devrait se faire automatiquement. Vous pouvez effectuer cette action sur WAMP ou MAMP, à cette étape.
+
+
+7. Via le terminal, lancez l'une des deux commandes pour démarrer l'application Symfony :
 
 ```zsh
 symfony server:start
 ```
 
+ou
+
+```zsh
+php -S localhost:8000 -t public
+```
+
 Si vous rencontrez un problème à cette étape, veuillez vous assurer que WAMP ou MAMP est présent et lancé sur votre machine et que le démarrage du serveur local de Symfony a bien été effectué depuis le dossier racine du projet.
 
-7. Une fois la connexion avec la base de données établie, vous pouvez commencer à tester les fonctionnalités de l'API via le logiciel Postman. Le logiciel doit être installé en local pour fonctionner correctement.
 
-Vous trouverez les identifiants de connexion et toutes les autres informations nécéssaires directement sur la documentation de l'API, dont le lien se trouve en haut de ce fichier.
+8. Une fois la connexion avec la base de données établie, vous pouvez commencer à tester les fonctionnalités de l'API via le logiciel Postman. Le programme doit être installé en local pour fonctionner correctement.
+
+
+9. Vous trouverez les identifiants de connexion et toutes les autres informations nécéssaires directement sur la documentation de l'API, dont le lien se trouve en haut de ce fichier.
+
 
 ### Merci pour votre attention !
