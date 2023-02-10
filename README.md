@@ -11,11 +11,11 @@
 
 ### À propos
 
-Bonjour et bienvenue sur le dépôt de mon travail, qui traite du sixième projet d'OpenClassrooms, intitulé **Créez un web service exposant une API** ! Vous trouverez, ci-après, la procédure d'installation pour prendre en main le code du projet, ainsi que la base de données et sa structure, conçue pour fonctionner avec.
+Bonjour et bienvenue sur le dépôt de mon travail, qui traite du septième projet d'OpenClassrooms, intitulé **Créez un web service exposant une API** ! Vous trouverez, ci-après, la procédure d'installation pour prendre en main le code du projet, ainsi que la base de données et sa structure, conçue pour fonctionner avec.
 
-Vous trouverez également, dans le dossier **ressources/diagrams**, les diagrammes UML conçus en amont du projet, ainsi que le compte rendu de qualité de code, disponible en cliquant sur le bouton **SymfonyInsight**, présent ci-dessus.
+Vous trouverez également, dans le dossier **ressources**, les diagrammes UML conçus en amont du projet, la base de données au format SQL, ainsi qu'un lien vers la documentation de l'API, hébergée par Postman.
 
-[comment]: <> ([![Preview site]&#40;https://img.shields.io/badge/Preview%20site--327cbd?style=for-the-badge&logo=InternetExplorer&logoColor=white&#41;]&#40;https://snowtricks.florianjourde.com/&#41;)
+[![Documentation](https://img.shields.io/badge/Preview%20site--95aabd?style=for-the-badge&logo=Postman&logoColor=white)](https://documenter.getpostman.com/view/25406820/2s935sohQC)
 
 ---
 
@@ -30,78 +30,50 @@ Pour pouvoir installer ce projet, le gestionnaire de dépendance **Composer** do
 
 ---
 
-[comment]: <> (## Installation)
+## Installation
 
-[comment]: <> (1. À l'aide d'un terminal, créez un dossier à l'emplacement souhaité pour l'installation du projet. Lancez la commande suivante :)
+1. À l'aide d'un terminal, créez un dossier à l'emplacement souhaité pour l'installation du projet. Lancez ensuite la commande suivante :
 
-[comment]: <> (```shell)
+```shell
+git clone https://github.com/FlorianJourde/OpenClassrooms-7-Create-a-web-service-exposing-an-API
+```
 
-[comment]: <> (git clone https://github.com/FlorianJourde/OpenClassrooms-6-Develop-the-SnowTricks-community-site.git)
+2. Lancez cette commande pour vous rendre dans le dossier adequat :
 
-[comment]: <> (```)
+```shell
+cd OpenClassrooms-7-Create-a-web-service-exposing-an-API
+```
 
-[comment]: <> (2. Lancez cette commande pour vous rendre dans le dossier adequat :)
+3. À la racine de ce répertoire, lancez la commande suivante pour installer les dépendances Composer :
 
-[comment]: <> (```shell)
+```shell
+composer install
+```
 
-[comment]: <> (cd OpenClassrooms-6-Develop-the-SnowTricks-community-site)
+4. Une fois l'installation des dépendances terminée, vous devez maintenant dupliquer le fichier `.env` situé à la racine du projet, puis renommer le nouveau fichier en `.env.local`, pour vous connecter à votre base de données. À la ligne 31, remplacez les identifiants de connexion par vos identifiants de base de données locale :
 
-[comment]: <> (```)
+```php
+DATABASE_URL="mysql://username:password@127.0.0.1:3306/bilemo_db?serverVersion=5.7.36&charset=utf8mb4"
+```
 
-[comment]: <> (3. À la racine de ce répertoire, lancez la commande suivante pour installer les dépendances Composer :)
+5. Ensuite, importez simplement le fichier `bilemo_db.sql`, présent dans le dossier `ressources`, dans votre base de données SQL locale. Si toutes les informations ont correctement été renseignées, la connexion devrait se faire automatiquement. Vous pouvez effectuer cette action sur WAMP ou MAMP, à cette étape.
 
-[comment]: <> (```shell)
+6. Via le terminal, lancez l'une des deux commandes pour démarrer l'application Symfony :
 
-[comment]: <> (composer install)
+```zsh
+php -S localhost:8000 -t public
+```
 
-[comment]: <> (```)
+ou
 
-[comment]: <> (4. Une fois l'installation des dépendances terminée, vous devez maintenant modifier le fichier `.env.local` situé à la racine du projet, pour vous connecter à votre base de données. À la ligne 31, remplacez les identifiants de connexion par vos identifiants de base de données locale :)
+```zsh
+symfony server:start
+```
 
-[comment]: <> (```php)
+Si vous rencontrez un problème à cette étape, veuillez vous assurer que WAMP ou MAMP est présent et lancé sur votre machine et que le démarrage du serveur local de Symfony a bien été effectué depuis le dossier racine du projet.
 
-[comment]: <> (DATABASE_URL="mysql://username:password@127.0.0.1:3306/snowtricks_db?serverVersion=5.7.36&charset=utf8mb4")
+7. Une fois la connexion avec la base de données établie, vous pouvez commencer à tester les fonctionnalités de l'API via le logiciel Postman. Le logiciel doit être installé en local pour fonctionner correctement.
 
-[comment]: <> (```)
-
-[comment]: <> (5. Ensuite, importez simplement le fichier `snowtricks_db.sql`, présent dans le dossier `ressources`, dans votre base de données SQL locale. Si toutes les informations ont correctement été renseignées, la connexion devrait se faire automatiquement. Vous pouvez effectuer cette action sur WAMP ou MAMP, à cette étape.)
-
-[comment]: <> (6. Via le terminal, lancez l'une des deux commandes pour démarrer l'application Symfony :)
-
-[comment]: <> (```zsh)
-
-[comment]: <> (php -S localhost:8000 -t public)
-
-[comment]: <> (```)
-
-[comment]: <> (ou)
-
-[comment]: <> (```zsh)
-
-[comment]: <> (symfony server:start)
-
-[comment]: <> (```)
-
-[comment]: <> (Si vous rencontrez un problème à cette étape, veuillez vous assurer que WAMP ou MAMP est présent et lancé sur votre machine et que le démarrage du serveur local de Symfony a bien été effectué depuis le dossier racine du projet.)
-
-[comment]: <> (7. Pour pouvoir tester les fonctionnalités du site, veuillez utiliser les identifiants par défaut :)
-
-[comment]: <> (- Admin)
-
-[comment]: <> (	- ID : admin@admin.com)
-
-[comment]: <> (	- MDP : 123456)
-
-[comment]: <> (- Editor)
-
-[comment]: <> (	- ID : editor@editor.com)
-
-[comment]: <> (	- MDP : 123456)
-
-[comment]: <> (- User)
-
-[comment]: <> (	- ID : user@user.com)
-
-[comment]: <> (	- MDP : 123456)
+Vous trouverez les identifiants de connexion et toutes les autres informations nécéssaires directement sur la documentation de l'API, dont le lien se trouve en haut de ce fichier.
 
 ### Merci pour votre attention !

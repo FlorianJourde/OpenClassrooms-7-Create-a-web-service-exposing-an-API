@@ -3,10 +3,31 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use JMS\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Hateoas\Configuration\Annotation as Hateoas;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ *
+ * @Hateoas\Relation(
+ *      "self",
+ *      href = @Hateoas\Route(
+ *          "app_user_details",
+ *          parameters = { "id" = "expr(object.getId())" }
+ *      ),
+ *      exclusion = @Hateoas\Exclusion(groups="getUsers")
+ * )
+ *
+ * @Hateoas\Relation(
+ *      "delete",
+ *      href = @Hateoas\Route(
+ *          "app_delete_user",
+ *          parameters = { "id" = "expr(object.getId())" }
+ *      ),
+ *      exclusion = @Hateoas\Exclusion(groups="getUsers")
+ * )
  */
 class User
 {
@@ -14,21 +35,27 @@ class User
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"getUsers","getClients"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="L'email est obligatoire")
+     * @Assert\Length(min="1", max="255", minMessage="L'email doit faire au moins {{ limit }} caractères", maxMessage="L'email doit faire moins de {{ limite }} caractères.")
+     * @Groups({"getUsers","getClients"})
      */
     private $email;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({"getUsers","getClients"})
      */
     private $creationDate;
 
     /**
      * @ORM\ManyToOne(targetEntity=Client::class, inversedBy="users")
+     * @Groups({"getUsers","getClients"})
      */
     private $client;
 

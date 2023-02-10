@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : jeu. 09 fév. 2023 à 16:41
+-- Généré le : ven. 10 fév. 2023 à 14:24
 -- Version du serveur : 5.7.36
 -- Version de PHP : 7.4.26
 
@@ -117,7 +117,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `client_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_8D93D64919EB6921` (`client_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `user`

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Phone;
 use App\Repository\PhoneRepository;
+use JMS\Serializer\SerializationContext;
 use JMS\Serializer\SerializerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,7 +20,8 @@ class PhoneController extends AbstractController
     public function getAllPhones(PhoneRepository $phoneRepository, SerializerInterface $serializer): JsonResponse
     {
         $phonesList = $phoneRepository->findAll();
-        $jsonPhonesList = $serializer->serialize($phonesList, 'json');
+        $context = SerializationContext::create()->setGroups(["getPhones"]);
+        $jsonPhonesList = $serializer->serialize($phonesList, 'json', $context);
 
         return new JsonResponse($jsonPhonesList, Response::HTTP_OK, [], true);
     }
@@ -30,8 +32,8 @@ class PhoneController extends AbstractController
      */
     public function getPhoneDetails(Phone $phone, SerializerInterface $serializer): JsonResponse
     {
-//        $context = SerializationContext::create()->setGroups(["getPhones"]);
-        $jsonPhone = $serializer->serialize($phone, 'json');
+        $context = SerializationContext::create()->setGroups(["getPhones"]);
+        $jsonPhone = $serializer->serialize($phone, 'json', $context);
 
         return new JsonResponse($jsonPhone, Response::HTTP_OK, [], true);
     }
