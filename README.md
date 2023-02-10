@@ -15,7 +15,7 @@ Bonjour et bienvenue sur le dépôt de mon travail, qui traite du sixième proje
 
 Vous trouverez également, dans le dossier **ressources/diagrams**, les diagrammes UML conçus en amont du projet, ainsi que le compte rendu de qualité de code, disponible en cliquant sur le bouton **SymfonyInsight**, présent ci-dessus.
 
-[comment]: <> ([![Preview site]&#40;https://img.shields.io/badge/Preview%20site--327cbd?style=for-the-badge&logo=InternetExplorer&logoColor=white&#41;]&#40;https://snowtricks.florianjourde.com/&#41;)
+[![Documentation](https://img.shields.io/badge/Preview%20site--95aabd?style=for-the-badge&logo=Postman&logoColor=white)](https://documenter.getpostman.com/view/25406820/2s935sohQC)
 
 ---
 

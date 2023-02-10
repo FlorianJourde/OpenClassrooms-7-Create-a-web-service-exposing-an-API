@@ -15,6 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -49,17 +50,11 @@ class UserController extends AbstractController
      */
     public function createrUser(Request $request, SerializerInterface $serializer, ClientRepository $clientRepository, EntityManagerInterface $em, ValidatorInterface $validator): JsonResponse
     {
-        $clientList = [];
-
-        foreach ($clientRepository->findAll() as $client) {
-            $clientList[] = $client;
-        }
-
         $user = $serializer->deserialize($request->getContent(), User::class, 'json');
         $content = $request->toArray();
         $user->setEmail($content['email']);
         $user->setCreationDate(new DateTime());
-        $user->setClient($clientList[array_rand($clientList)]);
+        $user->setClient($this->getUser());
 
         $errors = $validator->validate($user);
         if ($errors->count() > 0) {
@@ -81,6 +76,11 @@ class UserController extends AbstractController
      */
     public function deleteUser(User $user, EntityManagerInterface $em): JsonResponse
     {
+
+        if ($user->getClient() !== $this->getUser()) {
+            throw new AccessDeniedHttpException("Vous n'avez pas les droits pour supprimer cet utilisateur.");
+        }
+
         $em->remove($user);
         $em->flush();
 
