@@ -26,8 +26,16 @@ class UserController extends AbstractController
     public function getAllUsers(UserRepository $userRepository, SerializerInterface $serializer): JsonResponse
     {
         $usersList = $userRepository->findAll();
+        $associatedUsers = [];
+
+        foreach ($usersList as $user) {
+            if ($user->getClient() === $this->getUser()) {
+                $associatedUsers[] = $user;
+            }
+        }
+
         $context = SerializationContext::create()->setGroups(["getUsers"]);
-        $jsonUsersLists = $serializer->serialize($usersList, 'json', $context);
+        $jsonUsersLists = $serializer->serialize($associatedUsers, 'json', $context);
 
         return new JsonResponse($jsonUsersLists, Response::HTTP_OK, [], true);
     }
@@ -38,6 +46,10 @@ class UserController extends AbstractController
      */
     public function getUserDetails(User $user, SerializerInterface $serializer, ValidatorInterface $validator): JsonResponse
     {
+        if ($user->getClient() !== $this->getUser()) {
+            throw new AccessDeniedHttpException("Vous ne pouvez pas voir les détails de cet utilisateur.");
+        }
+
         $context = SerializationContext::create()->setGroups(["getUsers"]);
         $jsonUser = $serializer->serialize($user, 'json', $context);
 
@@ -75,7 +87,6 @@ class UserController extends AbstractController
      */
     public function deleteUser(User $user, EntityManagerInterface $em): JsonResponse
     {
-
         if ($user->getClient() !== $this->getUser()) {
             throw new AccessDeniedHttpException("Vous n'avez pas les droits pour supprimer cet utilisateur.");
         }
