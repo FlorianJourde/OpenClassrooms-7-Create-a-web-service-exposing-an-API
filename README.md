@@ -78,7 +78,7 @@ DATABASE_URL="mysql://username:password@127.0.0.1:3306/bilemo_db?serverVersion=5
 ```
 
 
-7. Dans ce même fichier, vous devez également modifier la ligne 25, pour y indiquer le PASSPHRASE choisi pour JWT, ce qui donnera ceci :
+7. Dans ce même fichier, vous devez également modifier la ligne 25, pour y indiquer le passphrase choisi pour JWT, ce qui donnera ceci :
 ```
 JWT_PASSPHRASE=passphrase
 ```
@@ -114,17 +114,12 @@ php bin/console doctrine:fixtures:load
 11. À ce stade, un jeu de données devrait avoir été créé. Si vous n'avez pas réussi à créer et importer un jeu de données, vous pouvez importer le fichier `bilemo_db.sql`, présent dans le dossier `ressources`, dans votre base de données SQL locale.
 
 
-12. Via le terminal, lancez l'une des deux commandes pour démarrer l'application Symfony :
+12. Via le terminal, lancez la commande suivante pour démarrer l'application Symfony :
 
 ```zsh
 symfony server:start
 ```
 
-ou
-
-```zsh
-php -S localhost:8000 -t public
-```
 
 Si vous rencontrez un problème à cette étape, veuillez vous assurer que WAMP ou MAMP est présent et lancé sur votre machine et que le démarrage du serveur local de Symfony a bien été effectué depuis le dossier racine du projet.
 
