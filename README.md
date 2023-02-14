@@ -53,26 +53,44 @@ composer install
 ```
 
 
-4. Une fois l'installation des dépendances terminée, vous devez maintenant dupliquer le fichier `.env` situé à la racine du projet, puis renommer le nouveau fichier en `.env.local`, pour vous connecter à votre base de données. À la ligne 33, remplacez les identifiants de connexion par vos identifiants de base de données locale :
+4. Créez un dossier nommé `jwt` dans le dossier `config`, puis lancez la commande suivante pour créer une clé privée :
+
+```shell
+openssl genpkey -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096
+```
+
+Cette commande permet de générer une clé privée pour permettre l'authentification via JWT. Lorsqu'un passphrase vous sera demandé, choissisez-en un, que vous indiquerez ensuite dans le fichier `.env.local`.
+
+
+5. Lancez maintenant cette commande pour générer une clé publique :
+
+```shell
+openssl pkey -in config/jwt/private.pem -out config/jwt/public.pem -pubout
+```
+
+Entrez à nouveau le passphrase choisi.
+
+
+6. Une fois l'installation des dépendances terminée, vous devez maintenant dupliquer le fichier `.env` situé à la racine du projet, puis renommer le nouveau fichier en `.env.local`, pour vous connecter à votre base de données. À la ligne 33, remplacez les identifiants de connexion par vos identifiants de base de données locale :
 
 ```php
 DATABASE_URL="mysql://username:password@127.0.0.1:3306/bilemo_db?serverVersion=5.7.36&charset=utf8mb4"
 ```
 
 
-5. Dans ce même fichier, vous devez également modifier la ligne 25, pour y indiquer le PASSPHRASE de JWT, ce qui donnera ceci :
+7. Dans ce même fichier, vous devez également modifier la ligne 25, pour y indiquer le PASSPHRASE de JWT, ce qui donnera ceci :
 ```
-JWT_PASSPHRASE=123456
+JWT_PASSPHRASE=passphrase
 ```
 
 
-6. Après avoir modifié le fichier `.env.local` avec vos informations de connexion, lancez cette commande pour créer la base de données :
+8. Après avoir modifié le fichier `.env.local` avec vos informations de connexion, lancez cette commande pour créer la base de données :
 
 ```shell
 php bin/console doctrine:database:create
 ```
 
-7. Exportez désormais la structure de votre base de données, grace aux commandes suivantes :
+9. Exportez désormais la structure de votre base de données, grace aux commandes suivantes :
 
 ```shell
 php bin/console make:migration
@@ -84,17 +102,17 @@ puis
 php bin/console doctrine:migrations:migrate
 ```
 
-8. Si tout s'est correctement déroulé, une nouvelle base de données `bilemo_db` est apparu parmi les tables de votre serveur local. Lancez ensuite la commande suivante pour générer un jeu de données, s'appuyant sur les fixtures :
+10. Si tout s'est correctement déroulé, une nouvelle base de données `bilemo_db` est apparu parmi les tables de votre serveur local. Lancez ensuite la commande suivante pour générer un jeu de données, s'appuyant sur les fixtures :
 
 ```shell
 php bin/console doctrine:fixtures:load
 ```
 
 
-9. À ce stade, un jeu de données devrait avoir été créé. Si vous n'avez pas réussi à créer et importer un jeu de données, vous pouvez importer le fichier `bilemo_db.sql`, présent dans le dossier `ressources`, dans votre base de données SQL locale.
+11. À ce stade, un jeu de données devrait avoir été créé. Si vous n'avez pas réussi à créer et importer un jeu de données, vous pouvez importer le fichier `bilemo_db.sql`, présent dans le dossier `ressources`, dans votre base de données SQL locale.
 
 
-10. Via le terminal, lancez l'une des deux commandes pour démarrer l'application Symfony :
+12. Via le terminal, lancez l'une des deux commandes pour démarrer l'application Symfony :
 
 ```zsh
 symfony server:start
@@ -109,10 +127,10 @@ php -S localhost:8000 -t public
 Si vous rencontrez un problème à cette étape, veuillez vous assurer que WAMP ou MAMP est présent et lancé sur votre machine et que le démarrage du serveur local de Symfony a bien été effectué depuis le dossier racine du projet.
 
 
-8. Une fois la connexion avec la base de données établie, vous pouvez commencer à tester les fonctionnalités de l'API via le logiciel Postman. Le programme doit être installé en local pour fonctionner correctement.
+13. Une fois la connexion avec la base de données établie, vous pouvez commencer à tester les fonctionnalités de l'API via le logiciel Postman. Le programme doit être installé en local pour fonctionner correctement.
 
 
-9. Vous trouverez les identifiants de connexion et toutes les autres informations nécéssaires directement sur la documentation de l'API, dont le lien se trouve en haut de ce fichier.
+14. Vous trouverez les identifiants de connexion et toutes les autres informations nécéssaires directement sur la documentation de l'API, dont le lien se trouve en haut de ce fichier.
 
 
 ### Merci pour votre attention !
