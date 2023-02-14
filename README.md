@@ -78,7 +78,7 @@ DATABASE_URL="mysql://username:password@127.0.0.1:3306/bilemo_db?serverVersion=5
 ```
 
 
-7. Dans ce même fichier, vous devez également modifier la ligne 25, pour y indiquer le PASSPHRASE de JWT, ce qui donnera ceci :
+7. Dans ce même fichier, vous devez également modifier la ligne 25, pour y indiquer le PASSPHRASE choisi pour JWT, ce qui donnera ceci :
 ```
 JWT_PASSPHRASE=passphrase
 ```
@@ -89,6 +89,7 @@ JWT_PASSPHRASE=passphrase
 ```shell
 php bin/console doctrine:database:create
 ```
+
 
 9. Exportez désormais la structure de votre base de données, grace aux commandes suivantes :
 
@@ -101,6 +102,7 @@ puis
 ```shell
 php bin/console doctrine:migrations:migrate
 ```
+
 
 10. Si tout s'est correctement déroulé, une nouvelle base de données `bilemo_db` est apparu parmi les tables de votre serveur local. Lancez ensuite la commande suivante pour générer un jeu de données, s'appuyant sur les fixtures :
 
