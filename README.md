@@ -66,10 +66,35 @@ JWT_PASSPHRASE=123456
 ```
 
 
-6. Ensuite, importez simplement le fichier `bilemo_db.sql`, présent dans le dossier `ressources`, dans votre base de données SQL locale. Si toutes les informations ont correctement été renseignées, la connexion devrait se faire automatiquement. Vous pouvez effectuer cette action sur WAMP ou MAMP, à cette étape.
+6. Après avoir modifié le fichier `.env.local` avec vos informations de connexion, lancez cette commande pour créer la base de données :
+
+```shell
+php bin/console doctrine:database:create
+```
+
+7. Exportez désormais la structure de votre base de données, grace aux commandes suivantes :
+
+```shell
+php bin/console make:migration
+```
+
+puis
+
+```shell
+php bin/console doctrine:migrations:migrate
+```
+
+8. Si tout s'est correctement déroulé, une nouvelle base de données `bilemo_db` est apparu parmi les tables de votre serveur local. Lancez ensuite la commande suivante pour générer un jeu de données, s'appuyant sur les fixtures :
+
+```shell
+php bin/console doctrine:fixtures:load
+```
 
 
-7. Via le terminal, lancez l'une des deux commandes pour démarrer l'application Symfony :
+9. À ce stade, un jeu de données devrait avoir été créé. Si vous n'avez pas réussi à créer et importer un jeu de données, vous pouvez importer le fichier `bilemo_db.sql`, présent dans le dossier `ressources`, dans votre base de données SQL locale.
+
+
+10. Via le terminal, lancez l'une des deux commandes pour démarrer l'application Symfony :
 
 ```zsh
 symfony server:start
