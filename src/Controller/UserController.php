@@ -23,8 +23,11 @@ class UserController extends AbstractController
     /**
      * @Route("/api/users", name="app_users", methods="GET")
      */
-    public function getAllUsers(UserRepository $userRepository, SerializerInterface $serializer): JsonResponse
+    public function getAllUsers(UserRepository $userRepository, SerializerInterface $serializer, Request $request): JsonResponse
     {
+        $page = $request->get('page', 1);
+        $limit = $request->get('limit', 3);
+
         $usersList = $userRepository->findAll();
         $associatedUsers = [];
 
@@ -35,7 +38,7 @@ class UserController extends AbstractController
         }
 
         $context = SerializationContext::create()->setGroups(["getUsers"]);
-        $jsonUsersLists = $serializer->serialize($associatedUsers, 'json', $context);
+        $jsonUsersLists = $serializer->serialize(array_slice($associatedUsers, ($page - 1) * $limit, $limit), 'json', $context);
 
         return new JsonResponse($jsonUsersLists, Response::HTTP_OK, [], true);
     }
