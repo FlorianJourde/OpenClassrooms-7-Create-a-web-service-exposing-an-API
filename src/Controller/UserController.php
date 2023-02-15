@@ -66,6 +66,11 @@ class UserController extends AbstractController
     {
         $user = $serializer->deserialize($request->getContent(), User::class, 'json');
         $content = $request->toArray();
+
+        if (!(filter_var($content['email'], FILTER_VALIDATE_EMAIL))) {
+            throw new AccessDeniedHttpException("L'adresse email que vous avez renseigné n'est pas valide.");
+        }
+
         $user->setEmail($content['email']);
         $user->setCreationDate(new DateTime());
         $user->setClient($this->getUser());

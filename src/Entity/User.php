@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use DateTimeInterface;
 use JMS\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -37,7 +38,7 @@ class User
      * @ORM\Column(type="integer")
      * @Groups({"getUsers","getClients"})
      */
-    private $id;
+    private ?int $id = null;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -45,19 +46,19 @@ class User
      * @Assert\Length(min="1", max="255", minMessage="L'email doit faire au moins {{ limit }} caractères", maxMessage="L'email doit faire moins de {{ limite }} caractères.")
      * @Groups({"getUsers","getClients"})
      */
-    private $email;
+    private string $email;
 
     /**
      * @ORM\Column(type="datetime")
      * @Groups({"getUsers","getClients"})
      */
-    private $creationDate;
+    private ?DateTimeInterface $creationDate;
 
     /**
      * @ORM\ManyToOne(targetEntity=Client::class, inversedBy="users")
      * @Groups({"getUsers","getClients"})
      */
-    private $client;
+    private ?Client $client;
 
     public function getId(): ?int
     {
@@ -76,12 +77,12 @@ class User
         return $this;
     }
 
-    public function getCreationDate(): ?\DateTimeInterface
+    public function getCreationDate(): ?DateTimeInterface
     {
         return $this->creationDate;
     }
 
-    public function setCreationDate(\DateTimeInterface $creationDate): self
+    public function setCreationDate(DateTimeInterface $creationDate): self
     {
         $this->creationDate = $creationDate;
 
