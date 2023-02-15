@@ -9,6 +9,7 @@ use JMS\Serializer\SerializerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -17,9 +18,13 @@ class ProductController extends AbstractController
     /**
      * @Route("/api/products", name="app_products", methods="GET")
      */
-    public function getAllProducts(ProductRepository $productRepository, SerializerInterface $serializer): JsonResponse
+    public function getAllProducts(ProductRepository $productRepository, SerializerInterface $serializer, Request $request): JsonResponse
     {
-        $productsList = $productRepository->findAll();
+        $page = $request->get('page', 1);
+        $limit = $request->get('limit', 5);
+
+//        $productsList = $productRepository->findAll();
+        $productsList = $productRepository->findAllWithPagination($page, $limit);
         $context = SerializationContext::create()->setGroups(["getProducts"]);
         $jsonProductsList = $serializer->serialize($productsList, 'json', $context);
 
