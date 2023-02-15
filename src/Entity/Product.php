@@ -27,43 +27,43 @@ class Product
      * @ORM\Column(type="integer")
      * @Groups({"getProducts"})
      */
-    private $id;
+    private ?int $id = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"getProducts"})
      */
-    private $brand;
+    private string $brand;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"getProducts"})
      */
-    private $model;
+    private string $model;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"getProducts"})
      */
-    private $color;
+    private ?string $color;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      * @Groups({"getProducts"})
      */
-    private $memory;
+    private ?int $memory;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      * @Groups({"getProducts"})
      */
-    private $description;
+    private ?string $description;
 
     /**
      * @ORM\Column(type="float")
      * @Groups({"getProducts"})
      */
-    private $price;
+    private float $price;
 
     public function getId(): ?int
     {

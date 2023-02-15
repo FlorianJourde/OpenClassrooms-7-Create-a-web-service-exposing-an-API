@@ -21,32 +21,32 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="integer")
      * @Groups({"getUsers","getClients"})
      */
-    private $id;
+    private ?int $id = null;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      * @Groups({"getUsers","getClients"})
      */
-    private $email;
+    private string $email;
 
     /**
      * @ORM\Column(type="json")
      * @Groups({"getUsers","getClients"})
      */
-    private $roles = [];
+    private ?array $roles = [];
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
      * @Groups({"getUsers","getClients"})
      */
-    private $password;
+    private string $password;
 
     /**
      * @ORM\OneToMany(targetEntity=User::class, mappedBy="client")
      * @Groups({"getUsers","getClients"})
      */
-    private $users;
+    private Collection $users;
 
     public function __construct()
     {
@@ -77,7 +77,7 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->email;
+        return $this->email;
     }
 
     /**
@@ -85,7 +85,7 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUsername(): string
     {
-        return (string) $this->email;
+        return $this->email;
     }
 
     /**
