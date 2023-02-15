@@ -3,7 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Client;
-use App\Entity\Phone;
+use App\Entity\Product;
 use App\Entity\User;
 use DateTimeImmutable;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -44,18 +44,18 @@ class AppFixtures extends Fixture
         $models = ['14', '7 Plus', 'S22', '13 Ultra', 'X6 Pro'];
         $colors = ['Black', 'White', 'Grey', 'Red', 'Blue', 'Yellow', 'Green'];
         $memory = [32, 64, 128, 256, 512];
-        $descriptions = ['Our brand new flagship', 'This is the phone you need', 'Once you\'ve tried it, you can\'t go back', 'The best smartphone overall', 'Simply different'];
+        $descriptions = ['Our brand new flagship', 'This is the product you need', 'Once you\'ve tried it, you can\'t go back', 'The best smartproduct overall', 'Simply different'];
         $prices = [249.99, 499.99, 999.99, 1299.99, 149.99];
 
         for ($i = 0; $i < 10; $i++) {
-            $phone = new Phone();
-            $phone->setBrand($brands[array_rand($brands, 1)]);
-            $phone->setModel($models[array_rand($models, 1)]);
-            $phone->setColor($colors[array_rand($colors, 1)]);
-            $phone->setMemory($memory[array_rand($memory, 1)]);
-            $phone->setDescription($descriptions[array_rand($descriptions, 1)]);
-            $phone->setPrice($prices[array_rand($prices, 1)]);
-            $manager->persist($phone);
+            $product = new Product();
+            $product->setBrand($brands[array_rand($brands, 1)]);
+            $product->setModel($models[array_rand($models, 1)]);
+            $product->setColor($colors[array_rand($colors, 1)]);
+            $product->setMemory($memory[array_rand($memory, 1)]);
+            $product->setDescription($descriptions[array_rand($descriptions, 1)]);
+            $product->setPrice($prices[array_rand($prices, 1)]);
+            $manager->persist($product);
         }
 
         $manager->flush();

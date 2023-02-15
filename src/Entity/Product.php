@@ -2,66 +2,66 @@
 
 namespace App\Entity;
 
-use App\Repository\PhoneRepository;
+use App\Repository\ProductRepository;
 use JMS\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
 use Hateoas\Configuration\Annotation as Hateoas;
 
 /**
- * @ORM\Entity(repositoryClass=PhoneRepository::class)
+ * @ORM\Entity(repositoryClass=ProductRepository::class)
  *
  * @Hateoas\Relation(
  *      "self",
  *      href = @Hateoas\Route(
- *          "app_phone_details",
+ *          "app_product_details",
  *          parameters = { "id" = "expr(object.getId())" }
  *      ),
- *      exclusion = @Hateoas\Exclusion(groups="getPhones")
+ *      exclusion = @Hateoas\Exclusion(groups="getProducts")
  * )
  */
-class Phone
+class Product
 {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"getPhones"})
+     * @Groups({"getProducts"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"getPhones"})
+     * @Groups({"getProducts"})
      */
     private $brand;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"getPhones"})
+     * @Groups({"getProducts"})
      */
     private $model;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"getPhones"})
+     * @Groups({"getProducts"})
      */
     private $color;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
-     * @Groups({"getPhones"})
+     * @Groups({"getProducts"})
      */
     private $memory;
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     * @Groups({"getPhones"})
+     * @Groups({"getProducts"})
      */
     private $description;
 
     /**
      * @ORM\Column(type="float")
-     * @Groups({"getPhones"})
+     * @Groups({"getProducts"})
      */
     private $price;
 
