@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : ven. 10 fév. 2023 à 14:24
+-- Généré le : ven. 17 fév. 2023 à 11:43
 -- Version du serveur : 5.7.36
 -- Version de PHP : 7.4.26
 
@@ -42,9 +42,9 @@ CREATE TABLE IF NOT EXISTS `client` (
 --
 
 INSERT INTO `client` (`id`, `email`, `roles`, `password`) VALUES
-(1, 'client0@bilemo.com', '[\"ROLE_USER\"]', '$2y$13$gzowZU3GCMrc8IAuyR11I.Tyk5/L2Xj5rU1OS8H9cb1VYQnR0DuPy'),
-(2, 'client1@bilemo.com', '[\"ROLE_USER\"]', '$2y$13$DkCAza5uiKDZXcmUatrrTe8tRZyfiIcQM5fXtfrVVlAE/13WtxmPG'),
-(3, 'client2@bilemo.com', '[\"ROLE_USER\"]', '$2y$13$jeOW5rDdqWUlPedEFi0hiuQ6IhS31UwjZmJGiWEs3ktGJuWlyqus2');
+(1, 'client0@bilemo.com', '[\"ROLE_USER\"]', '$2y$13$/uRyaeXPmHC.nQtq.qXvx.6/tleaLGFN/amM/KsQCDEcnVajfytBO'),
+(2, 'client1@bilemo.com', '[\"ROLE_USER\"]', '$2y$13$IkNPsBqzZcxfbc05A6UDkOO7pNLtT9gZ.qB85p57lbbwaWBc7IW1a'),
+(3, 'client2@bilemo.com', '[\"ROLE_USER\"]', '$2y$13$n.03zvteKpYDVvwzjfAxo.Jgr1QU3zFWwEfD0G9a4QNA5E6cMmsQa');
 
 -- --------------------------------------------------------
 
@@ -65,18 +65,16 @@ CREATE TABLE IF NOT EXISTS `doctrine_migration_versions` (
 --
 
 INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
-('DoctrineMigrations\\Version20230130215046', '2023-01-30 21:51:01', 54),
-('DoctrineMigrations\\Version20230209112315', '2023-02-09 11:23:21', 105),
-('DoctrineMigrations\\Version20230209112344', '2023-02-09 11:23:47', 110);
+('DoctrineMigrations\\Version20230217114001', '2023-02-17 11:40:12', 91);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `phone`
+-- Structure de la table `product`
 --
 
-DROP TABLE IF EXISTS `phone`;
-CREATE TABLE IF NOT EXISTS `phone` (
+DROP TABLE IF EXISTS `product`;
+CREATE TABLE IF NOT EXISTS `product` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `brand` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `model` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -85,23 +83,23 @@ CREATE TABLE IF NOT EXISTS `phone` (
   `description` longtext COLLATE utf8mb4_unicode_ci,
   `price` double NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Déchargement des données de la table `phone`
+-- Déchargement des données de la table `product`
 --
 
-INSERT INTO `phone` (`id`, `brand`, `model`, `color`, `memory`, `description`, `price`) VALUES
-(11, 'Google', '14', 'Red', 128, 'This is the phone you need', 999.99),
-(12, 'Apple', '13 Ultra', 'Black', 64, 'The best smartphone overall', 249.99),
-(13, 'Samsung', 'S22', 'Green', 32, 'Once you\'ve tried it, you can\'t go back', 149.99),
-(14, 'Xiaomi', 'X6 Pro', 'Black', 32, 'Our brand new flagship', 999.99),
-(15, 'Samsung', 'X6 Pro', 'Grey', 128, 'Simply different', 149.99),
-(16, 'Xiaomi', '14', 'White', 512, 'Once you\'ve tried it, you can\'t go back', 499.99),
-(17, 'Xiaomi', '13 Ultra', 'Black', 64, 'This is the phone you need', 999.99),
-(18, 'Google', '14', 'Black', 512, 'Our brand new flagship', 499.99),
-(19, 'Google', 'S22', 'Red', 32, 'The best smartphone overall', 149.99),
-(20, 'Google', '13 Ultra', 'Red', 32, 'Simply different', 149.99);
+INSERT INTO `product` (`id`, `brand`, `model`, `color`, `memory`, `description`, `price`) VALUES
+(1, 'Oppo', '13 Ultra', 'Blue', 256, 'Simply different', 249.99),
+(2, 'Xiaomi', 'S22', 'Yellow', 32, 'Simply different', 999.99),
+(3, 'Xiaomi', 'S22', 'Black', 128, 'This is the product you need', 249.99),
+(4, 'Apple', '7 Plus', 'Blue', 32, 'Our brand new flagship', 999.99),
+(5, 'Xiaomi', '13 Ultra', 'Blue', 128, 'Once you\'ve tried it, you can\'t go back', 149.99),
+(6, 'Samsung', '13 Ultra', 'Grey', 512, 'Once you\'ve tried it, you can\'t go back', 249.99),
+(7, 'Oppo', '13 Ultra', 'White', 128, 'Simply different', 149.99),
+(8, 'Google', '13 Ultra', 'Black', 64, 'Our brand new flagship', 1299.99),
+(9, 'Samsung', '7 Plus', 'White', 64, 'This is the product you need', 249.99),
+(10, 'Google', 'S22', 'Yellow', 128, 'This is the product you need', 149.99);
 
 -- --------------------------------------------------------
 
@@ -112,27 +110,28 @@ INSERT INTO `phone` (`id`, `brand`, `model`, `color`, `memory`, `description`, `
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `client_id` int(11) DEFAULT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `creation_date` datetime NOT NULL,
-  `client_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_8D93D64919EB6921` (`client_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `user`
 --
 
-INSERT INTO `user` (`id`, `email`, `creation_date`, `client_id`) VALUES
-(1, 'user0@bilemo.com', '2023-02-03 14:31:24', 1),
-(2, 'user1@bilemo.com', '2023-02-03 14:31:24', 2),
-(3, 'user2@bilemo.com', '2023-02-03 14:31:24', 3),
-(4, 'user3@bilemo.com', '2023-02-03 14:31:24', 1),
-(5, 'user4@bilemo.com', '2023-02-03 14:31:24', 2),
-(6, 'user5@bilemo.com', '2023-02-03 14:31:24', 3),
-(7, 'user6@bilemo.com', '2023-02-03 14:31:24', 2),
-(8, 'user7@bilemo.com', '2023-02-03 14:31:24', 3),
-(9, 'user8@bilemo.com', '2023-02-03 14:31:24', 1);
+INSERT INTO `user` (`id`, `client_id`, `email`, `creation_date`) VALUES
+(1, 3, 'user0@bilemo.com', '2023-02-17 11:40:30'),
+(2, 1, 'user1@bilemo.com', '2023-02-17 11:40:30'),
+(3, 2, 'user2@bilemo.com', '2023-02-17 11:40:30'),
+(4, 2, 'user3@bilemo.com', '2023-02-17 11:40:30'),
+(5, 1, 'user4@bilemo.com', '2023-02-17 11:40:30'),
+(6, 1, 'user5@bilemo.com', '2023-02-17 11:40:30'),
+(7, 1, 'user6@bilemo.com', '2023-02-17 11:40:30'),
+(8, 3, 'user7@bilemo.com', '2023-02-17 11:40:30'),
+(9, 3, 'user8@bilemo.com', '2023-02-17 11:40:30'),
+(10, 3, 'user9@bilemo.com', '2023-02-17 11:40:30');
 
 --
 -- Contraintes pour les tables déchargées
