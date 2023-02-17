@@ -12,11 +12,11 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
-    private $userPasswordHaser;
+    private UserPasswordHasherInterface $userPasswordHasher;
 
     public function __construct(UserPasswordHasherInterface $userPasswordHasher)
     {
-        $this->userPasswordHaser = $userPasswordHasher;
+        $this->userPasswordHasher = $userPasswordHasher;
     }
 
     public function load(ObjectManager $manager): void
@@ -27,7 +27,7 @@ class AppFixtures extends Fixture
             $client = new Client();
             $client->setEmail('client' . $i . '@bilemo.com');
             $client->setRoles(['ROLE_USER']);
-            $client->setPassword($this->userPasswordHaser->hashPassword($client, '123456'));
+            $client->setPassword($this->userPasswordHasher->hashPassword($client, '123456'));
             $manager->persist($client);
             $clientList[] = $client;
         }
@@ -49,12 +49,12 @@ class AppFixtures extends Fixture
 
         for ($i = 0; $i < 10; $i++) {
             $product = new Product();
-            $product->setBrand($brands[array_rand($brands, 1)]);
-            $product->setModel($models[array_rand($models, 1)]);
-            $product->setColor($colors[array_rand($colors, 1)]);
-            $product->setMemory($memory[array_rand($memory, 1)]);
-            $product->setDescription($descriptions[array_rand($descriptions, 1)]);
-            $product->setPrice($prices[array_rand($prices, 1)]);
+            $product->setBrand($brands[array_rand($brands)]);
+            $product->setModel($models[array_rand($models)]);
+            $product->setColor($colors[array_rand($colors)]);
+            $product->setMemory($memory[array_rand($memory)]);
+            $product->setDescription($descriptions[array_rand($descriptions)]);
+            $product->setPrice($prices[array_rand($prices)]);
             $manager->persist($product);
         }
 
