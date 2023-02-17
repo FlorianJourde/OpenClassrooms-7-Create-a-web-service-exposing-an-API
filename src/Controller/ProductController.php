@@ -22,9 +22,8 @@ class ProductController extends AbstractController
     {
         $page = $request->get('page', 1);
         $limit = $request->get('limit', 5);
-
-//        $productsList = $productRepository->findAll();
         $productsList = $productRepository->findAllWithPagination($page, $limit);
+
         $context = SerializationContext::create()->setGroups(["getProducts"]);
         $jsonProductsList = $serializer->serialize($productsList, 'json', $context);
 

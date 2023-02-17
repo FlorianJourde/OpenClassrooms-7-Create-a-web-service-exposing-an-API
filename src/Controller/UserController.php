@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Client;
 use App\Entity\User;
 use App\Repository\ClientRepository;
 use App\Repository\UserRepository;
@@ -25,20 +26,15 @@ class UserController extends AbstractController
      */
     public function getAllUsers(UserRepository $userRepository, SerializerInterface $serializer, Request $request): JsonResponse
     {
+        /** @var Client $client **/
+        $client = $this->getUser();
+
         $page = $request->get('page', 1);
-        $limit = $request->get('limit', 5);
-
-        $usersList = $userRepository->findAll();
-        $associatedUsers = [];
-
-        foreach ($usersList as $user) {
-            if ($user->getClient() === $this->getUser()) {
-                $associatedUsers[] = $user;
-            }
-        }
+        $limit = $request->get('limit', 3);
+        $usersList = $userRepository->findAllWithPaginationByClient($client->getId(), $page, $limit);
 
         $context = SerializationContext::create()->setGroups(["getUsers"]);
-        $jsonUsersLists = $serializer->serialize(array_slice($associatedUsers, ($page - 1) * $limit, $limit), 'json', $context);
+        $jsonUsersLists = $serializer->serialize($usersList, 'json', $context);
 
         return new JsonResponse($jsonUsersLists, Response::HTTP_OK, [], true);
     }
@@ -62,7 +58,7 @@ class UserController extends AbstractController
     /**
      * @Route("/api/users", name="app_create_user", methods="POST")
      */
-    public function createrUser(Request $request, SerializerInterface $serializer, ClientRepository $clientRepository, EntityManagerInterface $em, ValidatorInterface $validator): JsonResponse
+    public function createUser(Request $request, SerializerInterface $serializer, ClientRepository $clientRepository, EntityManagerInterface $em, ValidatorInterface $validator): JsonResponse
     {
         $user = $serializer->deserialize($request->getContent(), User::class, 'json');
         $content = $request->toArray();
